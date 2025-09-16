@@ -33,13 +33,15 @@ const numberToWordMapping = {
 
 // expecting time to be a string in the format like '8:15' or '12:30'
 function convertTimeToWords(time) {
-  if (time === "0:00") {
+  const [hours, minutes] = time.split(":").map(Number);
+
+  if (hours === 0 && minutes === 0) {
     return "midnight";
   }
 
-  if (time === "12:00") return "midday";
-
-  const [hours, minutes] = time.split(":").map(Number);
+  if (hours === 12 && minutes === 0) {
+    return "midday";
+  }
 
   if (minutes === 0) {
     return `${numberToWordMapping[hours]} o'clock`;
